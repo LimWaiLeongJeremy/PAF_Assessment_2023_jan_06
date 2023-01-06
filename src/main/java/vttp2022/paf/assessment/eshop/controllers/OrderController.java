@@ -20,6 +20,7 @@ import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.context.support.RequestHandledEvent;
 
 import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonValue;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,12 +76,12 @@ public class OrderController {
 				jsonPayload.add("lineItems", (JsonValue) lineItems);
 				jsonPayload.add("createBy", createBy);
 
-				js
+				Json jsonObject = jsonPayload.build().J
 
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
 
-				HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
+				HttpEntity<String> request = new HttpEntity<>(jsonObject, headers);
 
 
 				RestTemplate template = new RestTemplate();
