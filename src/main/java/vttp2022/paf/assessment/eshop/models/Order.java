@@ -1,6 +1,7 @@
 package vttp2022.paf.assessment.eshop.models;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Order {
 	private String address;
 	private String email;
 	private String status;
-	private Date orderDate = new Date();
+	private Timestamp timestamp;
 	private List<LineItem> lineItems = new LinkedList<>();
 
 	public String getOrderId() { return this.orderId; }
@@ -34,8 +35,8 @@ public class Order {
 	public String getStatus() { return this.status; }
 	public void setStatus(String status) { this.status = status; }
 
-	public Date getOrderDate() { return this.orderDate; }
-	public void setOrderDate(Date orderDate) { this.orderDate = orderDate; }
+	public Timestamp getOrderDate() { return this.timestamp; }
+	public void setOrderDate(Timestamp timestamp) { this.timestamp = timestamp; }
 
 	public Customer getCustomer() { 
 		Customer customer = new Customer();
