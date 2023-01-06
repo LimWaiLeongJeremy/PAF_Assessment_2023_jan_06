@@ -16,6 +16,12 @@ create table customers (
 	primary key(name)
 );
 
+insert into customers values
+("fred", "201 Cobblestone Lane", "fredflintstone@bedrock.com") , 
+("sherlock", "221B Baker Street, London", "sherlock@consultingdetective.org") ,
+("spongebob", "124 Conch Street, Bikini Bottom"," spongebob@yahoo.com") ,
+("jessica", "698 Candlewood Land, Cabot Cove", "fletcher@gmail.com") ,
+("dursley", "4 Privet Drive, Little Whinging, Surrey", "dursley@gmail.com");
 
 
 	-- last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
