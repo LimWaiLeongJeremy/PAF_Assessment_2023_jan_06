@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +21,7 @@ import org.springframework.web.context.support.RequestHandledEvent;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObjectBuilder;
+import jakarta.json.JsonValue;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vttp2022.paf.assessment.eshop.models.Customer;
@@ -57,18 +59,42 @@ public class OrderController {
 			Optional<Order> order = orderRepo.saveOrder(name, lineItems);
 			Order orderObject = order.orElse(Order);
 			String orderId = orderObject.getOrderId();
+			String address = orderObject.getAddress();
+			String email = orderObject.getEmail();
+			String createBy = "Lim Wai Leong, Jeremy";
 
 			if (order != null) {
 				String URL = "http://paf.chuklee.com/dispatch/" + orderId;
+				// String payload = "{\"name\":\"John\",\"email\":\"john@example.com\"}";
+				JsonObjectBuilder jsonPayload = Json.createObjectBuilder();
+				
+				jsonPayload.add("orderId", orderId);
+				jsonPayload.add("name", name);
+				jsonPayload.add("address", address);
+				jsonPayload.add("email", email);
+				jsonPayload.add("lineItems", (JsonValue) lineItems);
+				jsonPayload.add("createBy", createBy);
+
+				js
+
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_JSON);
+
+				HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
+
+
 				RestTemplate template = new RestTemplate();
 				ResponseEntity<String> resp = null;
 
-				resp = template.exchange(
-						URL,
-						HttpMethod.POST,
-						String.class,
-						1);
-						
+				resp = template.postForEntity(URL, 
+											resp, 
+											String.class);
+				// resp = template.exchange(
+				// 		URL,
+				// 		HttpMethod.POST,
+				// 		String.class,
+				// 		1);
+
         if(resp.getStatusCode() == HttpStatus.OK) {
             logger.info("Response Successful");
         } else {
